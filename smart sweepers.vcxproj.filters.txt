@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{f38d061d-96a5-4fa4-9d00-1f434634be14}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{3d772cb9-b810-49d2-b4e4-7161ea212a76}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{5c76888b-caa8-491b-aa3b-7febc1ac62e5}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="ini files">
+      <UniqueIdentifier>{ad9d14e6-e0d4-4406-8a18-ca348b4d6426}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Math Helpers">
+      <UniqueIdentifier>{83b3b090-596d-4eab-a352-5e77e2f0dd7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{0733d3b8-6a1a-46df-a36f-bbbcb2a63868}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Math Helpers">
+      <UniqueIdentifier>{46c15bf3-7a96-48ae-99b2-4b1462b4fe0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Continuous Environment">
+      <UniqueIdentifier>{9bc087b3-b334-44f6-b832-b0d8371c6e81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Base Objects">
+      <UniqueIdentifier>{8b993ad5-8e0f-4ad9-845e-b0a650c9b3c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Base Objects">
+      <UniqueIdentifier>{e6647ea0-397e-4d76-8fbc-30f370da4d4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{0f658abc-a836-4b79-a129-45bf2468def4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Continuous Environment">
+      <UniqueIdentifier>{63643960-2ec4-4127-b9a8-5bc208e159d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Discrete Environment">
+      <UniqueIdentifier>{34c6b1c7-ed4c-4d0a-8ae4-80a79dda6278}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Discrete Environment">
+      <UniqueIdentifier>{f5e9fadb-31e6-418d-9007-7595507bf195}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Prac Controllers">
+      <UniqueIdentifier>{58e7440b-cca9-4dc8-abeb-adee2ced6778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Prac Controllers">
+      <UniqueIdentifier>{cf222856-259c-490e-af0f-617da3e2656d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CParams.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C2DMatrix.cpp">
+      <Filter>Source Files\Math Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="CContCollisionObject.cpp">
+      <Filter>Source Files\Continuous Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="CContMinesweeper.cpp">
+      <Filter>Source Files\Continuous Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimer.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionObject.cpp">
+      <Filter>Source Files\Base Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CController.cpp">
+      <Filter>Source Files\Base Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CMinesweeper.cpp">
+      <Filter>Source Files\Base Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CContController.cpp">
+      <Filter>Source Files\Continuous Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="CDiscCollisionObject.cpp">
+      <Filter>Source Files\Discrete Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="CDiscMinesweeper.cpp">
+      <Filter>Source Files\Discrete Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="CDiscController.cpp">
+      <Filter>Source Files\Discrete Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="CQLearningController.cpp">
+      <Filter>Source Files\Prac Controllers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CParams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C2DMatrix.h">
+      <Filter>Header Files\Math Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="SVector2D.h">
+      <Filter>Header Files\Math Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimer.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="CContCollisionObject.h">
+      <Filter>Header Files\Continuous Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="CContMinesweeper.h">
+      <Filter>Header Files\Continuous Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="CMinesweeper.h">
+      <Filter>Header Files\Base Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CController.h">
+      <Filter>Header Files\Base Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollisionObject.h">
+      <Filter>Header Files\Base Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CContController.h">
+      <Filter>Header Files\Continuous Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="CDiscCollisionObject.h">
+      <Filter>Header Files\Discrete Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="CDiscController.h">
+      <Filter>Header Files\Discrete Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="CDiscMinesweeper.h">
+      <Filter>Header Files\Discrete Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="CQLearningController.h">
+      <Filter>Header Files\Prac Controllers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Script1.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="params.ini">
+      <Filter>ini files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="training_data.txt">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
