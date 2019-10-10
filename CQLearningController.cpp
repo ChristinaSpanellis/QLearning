@@ -30,6 +30,7 @@ CQLearningController::CQLearningController(HWND hwndMain):
 void CQLearningController::InitializeLearningAlgorithm(void)
 { 	
 	CDiscController::InitializeLearningAlgorithm();
+	
 	// This is my "reward" matrix
 	// a 2D matrix of dim x by y that stores the reward
 	// if there is a supermine at x,y then R[x,y] = -100, if there is a mine at x,y then R[x,y] = 100, if there is a rock at x,y then R[x,y] = -100
@@ -38,7 +39,6 @@ void CQLearningController::InitializeLearningAlgorithm(void)
 	// a 4D vector, the first level is for each mine sweeper
 	// then it basically represents the X by Y grid world, where each entry
 	// is a vector with four entries, one for left/right/up/down with all values set to 0.0
-	srand(time(NULL));
 	QTables = new double*** [m_vecSweepers.size()];
 	for (int i = 0;i < m_vecSweepers.size();++i) {
 		QTables[i] = new double** [_grid_size_x];
@@ -62,26 +62,25 @@ void CQLearningController::InitializeLearningAlgorithm(void)
 */
 double CQLearningController::R(uint x,uint y, uint sweeper_no){
 	//TODO: roll your own here!
-	if (m_vecSweepers[sweeper_no]->isDead()) { return 0; }
+	if (m_vecSweepers[sweeper_no]->isDead()) { return -60; }
 	if (m_vecSweepers[sweeper_no]->MinesGathered() == m_NumMines) {
 		return 600;
 	}
 	else {
-		for (int i = 0; i < m_vecObjects.size(); ++i) {
-			if (m_vecObjects[i]->getPosition().x == x && m_vecObjects[i]->getPosition().y == y) {
-				if (m_vecObjects[i]->getType() == CCollisionObject::Mine) {
-					return 500;
-				}
-				else if (m_vecObjects[i]->getType() == CCollisionObject::SuperMine) {
-					return -100;
-				}
-
+		int collidableObjectIndex = m_vecSweepers[sweeper_no]->CheckForObject(m_vecObjects, 0);
+		if (collidableObjectIndex > -1) {
+			if (m_vecObjects[collidableObjectIndex]->getType() == CCollisionObject::Mine) {
+				return 500;
 			}
-			else {
-				return -10;
+			else if (m_vecObjects[collidableObjectIndex]->getType() == CCollisionObject::SuperMine) {
+				return -500;
 			}
-
 		}
+		else {
+			return -60;
+		}
+
+		
 	}
 }
 /**
@@ -90,6 +89,7 @@ See: Watkins, Christopher JCH, and Peter Dayan. "Q-learning." Machine learning 8
 */
 bool CQLearningController::Update(void)
 {
+	
 	//m_vecSweepers is the array of minesweepers
 	//everything you need will be m_[something] ;)
 	uint cDead = std::count_if(m_vecSweepers.begin(),
@@ -101,11 +101,10 @@ bool CQLearningController::Update(void)
 		printf("All dead ... skipping to next iteration\n");
 		m_iTicks = CParams::iNumTicks;
 	}
+	
 
-	vector<int> actions(CParams::iNumSweepers);
 	for (uint sw = 0; sw < CParams::iNumSweepers; ++sw){
 		if (m_vecSweepers[sw]->isDead()) continue;
-		int action=0;
 		/**
 		Q-learning algorithm according to:
 		Watkins, Christopher JCH, and Peter Dayan. "Q-learning." Machine learning 8. 3-4 (1992): 279-292
@@ -113,26 +112,23 @@ bool CQLearningController::Update(void)
 		//1:::Observe the current state:
 		//TODO
 		//2:::Select action with highest historic return:
-		if (QTables[sw][m_vecSweepers[sw]->Position().x/10][m_vecSweepers[sw]->Position().y/10][0] == QTables[sw][m_vecSweepers[sw]->Position().x/10][m_vecSweepers[sw]->Position().y/10][1] && QTables[sw][m_vecSweepers[sw]->Position().x / 10][m_vecSweepers[sw]->Position().y / 10][1] == QTables[sw][m_vecSweepers[sw]->Position().x / 10][m_vecSweepers[sw]->Position().y / 10][2] && QTables[sw][m_vecSweepers[sw]->Position().x / 10][m_vecSweepers[sw]->Position().y / 10][2] == QTables[sw][m_vecSweepers[sw]->Position().x / 10][m_vecSweepers[sw]->Position().y / 10][3]) {
-			action = rand() % 3 + 0;
-		
-		}
-		else {
-			double maxReward = -10000000;
-			for (int i = 0; i < 4; ++i) {
-				double reward = QTables[sw][m_vecSweepers[sw]->Position().x / 10][m_vecSweepers[sw]->Position().y / 10][i];
-				if (reward >= maxReward) {
-					action = i;
-					
-					maxReward = reward;
-				}
+		double maxReward = -10000000000;
+		for (int i = 0; i < 4; ++i) {
+			double reward = QTables[sw][m_vecSweepers[sw]->Position().x / 10][m_vecSweepers[sw]->Position().y / 10][i];
+			if (reward >= maxReward) {
+				maxReward = reward;
 			}
 		}
-		actions[sw] = action;
+		// need to check if they're all the same, then choose a random one
+		vector<int> actions;
+		for (int i = 0; i < 4; ++i) {
+			if (QTables[sw][m_vecSweepers[sw]->Position().x / 10][m_vecSweepers[sw]->Position().y / 10][i] == maxReward) {
+				actions.push_back(i);
+			}
+		}
+		int actionToChoose = RandInt(0, actions.size() - 1);
 		//enum ROTATION_DIRECTION {NORTH=1, SOUTH=3, EAST=0, WEST=2};
-		m_vecSweepers[sw]->setRotation((ROTATION_DIRECTION)action);
-		//m_vecSweepers[sw]->setRotation((ROTATION_DIRECTION)action);
-		
+		m_vecSweepers[sw]->setRotation((ROTATION_DIRECTION)actions[actionToChoose]);		
 ;
 		//TODO
 		//now call the parents update, so all the sweepers fulfill their chosen action
@@ -152,7 +148,7 @@ bool CQLearningController::Update(void)
 		SVector2D<int> prevState = m_vecSweepers[sw]->PrevPosition();
 		SVector2D<int> currentState = m_vecSweepers[sw]->Position();
 		double nextImmReward = R(prevState.x, prevState.y, sw);
-		QTables[sw][prevState.x / 10][prevState.y / 10][actions[sw]] +=  0.8 * (nextImmReward+0.8*(getMaxQValue(currentState.x, currentState.y, sw)- QTables[sw][prevState.x / 10][prevState.y / 10][actions[sw]]));
+		QTables[sw][prevState.x / 10][prevState.y / 10][m_vecSweepers[sw]->getRotation()] +=  0.8 * (nextImmReward+0.5*(getMaxQValue(currentState.x, currentState.y, sw))- QTables[sw][prevState.x / 10][prevState.y / 10][m_vecSweepers[sw]->getRotation()]);
 		//TODO
 	}
 	return true;
@@ -174,10 +170,10 @@ CQLearningController::~CQLearningController(void)
 }
 
 double CQLearningController::getMaxQValue(int x, int y, int sw) {
-	double max = 0;
+	double max = -100000000000;
 	for (int i = 0; i < 4; ++i) {
 		double curr = QTables[sw][x / 10][y / 10][i];
-		if (curr > max) {
+		if (curr >= max) {
 			max = curr;
 		}
 	}
