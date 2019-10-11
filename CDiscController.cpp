@@ -172,7 +172,7 @@ bool CDiscController::Update()
 				deaths++;
 			maxMines = max((*i)->MinesGathered(),maxMines);
 		}
-		
+
 		m_vecAvMinesGathered.push_back(sum/float(m_vecSweepers.size()));
 		m_vecMostMinesGathered.push_back(maxMines);
 		m_vecDeaths.push_back(deaths);
@@ -202,6 +202,7 @@ bool CDiscController::Update()
 //----------------------------------------------------------------------------------
 void CDiscController::Render(HDC surface)
 {
+
 	//render the stats
 	string s = "Iteration:          " + itos(m_iIterations);
 	TextOut(surface, 5, 0, s.c_str(), s.size());

@@ -40,7 +40,7 @@ public:
 
 	void setRotation(ROTATION_DIRECTION rotForce);
 	ROTATION_DIRECTION getRotation();
-
+	bool beenDead;
 	CDiscMinesweeper();
 	
 	//updates the information from the sweepers enviroment

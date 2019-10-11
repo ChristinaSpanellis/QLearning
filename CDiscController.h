@@ -2,6 +2,7 @@
 #include "ccontroller.h"
 #include "CDiscCollisionObject.h"
 #include "CDiscMinesweeper.h"
+#include <fstream>
 #include <assert.h>
 class CDiscController :
 	public CController

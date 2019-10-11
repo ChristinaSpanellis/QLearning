@@ -18,6 +18,9 @@ private:
 	uint _grid_size_x;
 	uint _grid_size_y;
 	double **** QTables; // Q tables
+	double **** QTableCounter; // counts the number of times each state action pair was visited
+	double epsilon = 0.9;
+	double discountFactor = 0.8;
 public:
 	CQLearningController(HWND hwndMain);
 	virtual void InitializeLearningAlgorithm(void);

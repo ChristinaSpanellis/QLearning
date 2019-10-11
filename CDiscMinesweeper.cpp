@@ -155,12 +155,14 @@ int CDiscMinesweeper::CheckForObject(vector<CDiscCollisionObject*> &objects, int
 			return m_iClosestRock;
 	}*/
 
-	DistToObject = m_vPosition - objects[m_iClosestSupermine]->getPosition();
-		
-	if (Vec2DLength<int>(DistToObject) < size+5)
-	{
+	/*DistToObject = m_vPosition - objects[m_iClosestSupermine]->getPosition();
+
+		if (Vec2DLength<int>(DistToObject) < size + 5)
+		{
 			return m_iClosestSupermine;
-	}
+		}
+	*/
+
 
   return -1;
 }
